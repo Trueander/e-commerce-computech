@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg text-white" style="background-color: #232323">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+        <li class="nav-item">
+          <a class="navbar-brand text-white fw-bold" [routerLink]="['/productos']">CompuTech</a>
+        </li>
+      </ul>
+      <div class="d-flex" role="search">
+
+        <button class="btn bg-dark bg-opacity-50 text-white" type="submit" (click)="cerrarSesion()">Salir</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <h2 class=" text-center">Productos</h2>
+  <div class="mb-3 d-flex justify-content-center" id="navbarSupportedContent">
+    <ul class=" mb-2 d-flex">
+
+      <li class="nav-item d-flex justify-content-center align-items-center me-4">
+        <a class="nav-link fw-bold text-white btn btn-dark p-2" [routerLink]="['/dashboard/productos/crear']"  style="cursor: pointer; width: 200px;">Crear Producto</a>
+      </li>
+      <li class="nav-item d-flex justify-content-center align-items-center me-4 ">
+        <a class="nav-link fw-bold text-white btn btn-dark p-2" [routerLink]="['/dashboard/ventas']" style="cursor: pointer; width: 200px;">Reporte de ventas</a>
+      </li>
+    </ul>
+  </div>
+  <table class="table table-bordered mb-5" >
+    <thead class="bg-dark  text-white">
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Descripción</th>
+        <th>Botones de acción</th>
+      </tr>
+    </thead>
+    <tbody class=" bg-white">
+      <tr *ngFor="let producto of productos">
+        <td class="fw-bold">{{producto.nombreProducto}}</td>
+        <td>{{producto.precio | currency: "$"}}</td>
+        <td >{{producto.descripcion}}</td>
+        <td>
+          <button class="btn btn-outline-primary  " [routerLink]="['productos/actualizar',producto.idProducto]">Actualizar</button>
+          <button class="btn btn-outline-danger ms-2  " (click)="eliminarProducto(producto)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

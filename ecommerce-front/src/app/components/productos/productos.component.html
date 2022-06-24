@@ -1,0 +1,185 @@
+<nav class="navbar " style="background-color: #232323">
+    <div class="container-fluid py-1">
+      <a class="navbar-brand text-white fw-bold">CompuTech</a>
+      <div class="d-flex" role="search">
+        <li class="nav-item d-flex justify-content-center align-items-center me-3" *ngIf="loginActivo">
+          <a class="nav-link fw-bold text-white" [routerLink]="['/dashboard']" style="cursor: pointer">Administrador</a>
+        </li>
+        <button class="btn bg-white " (click)="activarCarrito()" type="submit"><img src="../../../assets/shopping-cart.svg" class="me-2" alt="">{{venta.items.length}}</button>
+      </div>
+    </div>
+  </nav>
+
+  <div *ngIf="formActivo" class="container card py-3 px-4 mt-3" style="width: 700px">
+    <h4>Completar compra</h4>
+
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" [(ngModel)]="venta.nombresCliente" id="floatingInput" placeholder="nombresCliente" autocomplete="nope" name="uSu4ri0">
+      <label for="floatingInput">Nombres</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" [(ngModel)]="venta.apellidosCliente" id="floatingPassword" placeholder="apellidosCliente" autocomplete="new-password" name="contr4S3na">
+      <label for="floatingPassword">Apellidos</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" [(ngModel)]="venta.telefonoCliente" id="floatingInput" placeholder="telefonoCliente" autocomplete="nope" name="uSu4ri0">
+      <label for="floatingInput">Teléfono</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" [(ngModel)]="venta.nombreCalle" id="floatingPassword" placeholder="nombreCalle" autocomplete="new-password" name="contr4S3na">
+      <label for="floatingPassword">Nombre de calle</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" [(ngModel)]="venta.numeroCalle" id="floatingInput" placeholder="numeroCalle" autocomplete="nope" name="uSu4ri0">
+      <label for="floatingInput">Num. calle</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" [(ngModel)]="venta.ciudad" id="floatingPassword" placeholder="ciudad" autocomplete="new-password" name="contr4S3na">
+      <label for="floatingPassword">Ciudad</label>
+    </div>
+
+
+ 
+      <div class="d-flex">
+        <button class="btn bg-dark bg-opacity-50 text-white mt-2 w-50" (click)="realizarVenta()">Realizar compra</button>
+        <button class="btn bg-danger text-white mt-2 w-50 ms-2" (click)="activarCarrito()">Regresar </button>
+      </div>
+      
+      
+  </div>
+
+
+
+  <div *ngIf="carritoActivo && !formActivo">
+    <div class="container">
+        <div class="col-md-12 m-sm-auto col-lg-10 pt-5">
+          <div class="container h-100 mt-5" *ngIf="venta.items.length == 0">
+            <div class="row justify-content-center h-100">
+              <div class="col-sm-8 align-self-center text-center">
+                <div class="card-body">
+                  <img class="mr-4" src="../../assets/shopping-cart.svg" width="100px" />
+                  <h4 class="mt-4">Su carrito está vacío</h4>
+                  <a class="btn border-dark mt-4 p-3" (click)="desactivarCarrito()"
+                    ><span style="font-weight: 800"
+                      >Agregar productos al carrito</span
+                    ></a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div *ngIf="venta.items.length > 0">
+            <div class="d-flex justify-content-center">
+              <div class="mb-4 col-md-5">
+                <ul class="list-group mb-3">
+                  <button (click)="activarFormulario()"
+                    class="btn btn-block text-white bg-opacity-50 my-2"
+                    style="background-color: #232323"
+                  >
+                    <span style="font-weight: 800">Realizar pago</span>
+                  </button>
+                  <a class="btn btn-light btn-block" (click)="desactivarCarrito()"
+                    ><span style="font-weight: 800" >Página principal</span></a
+                  >
+                </ul>
+                <div class="col-sm-12 p-0 mb-3" *ngFor="let item of venta.items">
+                  <div class="card">
+                    <div class="row no-gutters">
+                      <div class="col-md-12">
+                        <div class="card-body">
+                          <h5 class="card-title fw-bolder">
+                            {{ item.cantidad }}x {{ item.producto.nombreProducto }}
+                            <span class="float-end fw-bolder mb-2 me-2">
+                              {{ item.cantidad * item.producto.precio | currency: "$" }}</span>
+                          </h5>
+                        </div>
+                        <div class="float-start form-group  ms-4 d-flex mb-2">
+                          <button
+                          class="btn bg-danger d-flex justify-content-center text-white"
+                            (click)="bajarCantidad(item)"
+                            style="cursor: pointer; width: 30px; height: 30px; line-height: 11px; font-size: 15px;font-weight: 700;"
+                          >-</button>
+                          <span class="mx-2">{{ item.cantidad }}</span>
+                          <button
+                          class="btn bg-success  d-flex justify-content-center text-white"
+                            (click)="aumentarCantidad(item)"
+                            style="cursor: pointer; width: 30px; height: 30px; line-height: 11px; font-size: 15px; font-weight: 700;"
+                          >+</button>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+      
+  </div>
+
+
+<div *ngIf="!carritoActivo">
+  <div class="d-flex justify-content-center">
+
+  
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true" style="width: 60%;">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner text-center px-5 mt-4" >
+          <div class="carousel-item active  " style="background-color: #000">
+            <img src="../../../assets/BANNER1.jpg" class="" style="width: 100%;" alt="...">
+          </div>
+          <div class="carousel-item" style="background-color: #000">
+            <img src="../../../assets/BANNER2.jpg" class="" style="width: 100%;" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <div>
+        <div class=" mx-0 px-0 pb-3 text-center mt-3">
+          <div class="col-12 col-sm-12 col-md-2 py-1" *ngFor="let categoria of categorias">
+              <div class="">
+                <a class="btn btn-outline-secondary  border-0 shadow-sm"  (click)="productosPorCategoria(categoria)" style="width: 300px; color: #000;"><h6 class="font-titulos mt-1">{{categoria.nombre}}</h6> </a>
+  
+              </div> 
+        </div>
+        </div>
+  
+      </div>
+    </div>
+<div class="container my-4">
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col" *ngFor="let producto of productos">
+          <div class="card  border-0 shadow-lg" style="height: 500px;">
+            <img [src]="producto.imagen" class="card-img-top"  style="height: 300px;width: 60%; margin: auto;" alt="...">
+            <div class="card-body d-flex flex-column justify-content-between ">
+              <h5 class="card-title">{{producto.nombreProducto}} </h5>
+              <p class="card-text">{{producto.descripcion}}</p>
+              <div class="d-flex justify-content-between">
+                <button class="btn  bg-opacity-50 d-grid text-white w-50" style="background-color: #232323" (click)="seleccionarProducto(producto)">Agregar al carrito</button>
+                <span class="fw-bold">${{producto.precio}}</span>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+      
+    
+</div>    

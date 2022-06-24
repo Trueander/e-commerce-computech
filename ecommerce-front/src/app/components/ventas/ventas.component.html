@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg text-white" style="background-color: #232323">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+        <li class="nav-item">
+          <a class="navbar-brand text-white fw-bold" [routerLink]="['/productos']">CompuTech</a>
+        </li>
+      </ul>
+      <div class="d-flex" role="search">
+
+        <button class="btn bg-dark bg-opacity-50 text-white" type="submit" (click)="cerrarSesion()">Salir</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="text-center">Reporte de ventas</h2>
+
+    <div class="mb-3 d-flex justify-content-center" id="navbarSupportedContent">
+      <ul class=" mb-2 d-flex">
+        <li class="nav-item d-flex justify-content-center align-items-center me-4">
+          <a class="nav-link fw-bold text-white btn btn-dark  p-2" [routerLink]="['/dashboard']" style="cursor: pointer; width: 200px;">Productos</a>
+        </li>
+        <li class="nav-item d-flex justify-content-center align-items-center me-4">
+          <a class="nav-link fw-bold text-white btn btn-dark p-2" [routerLink]="['/dashboard/productos/crear']"  style="cursor: pointer; width: 200px;">Crear Producto</a>
+        </li>
+      </ul>
+    </div>
+
+
+    <table class="table table-hover table-bordered mb-5 table-sm" style="width: 800px; margin: auto;">
+      <thead class="bg-dark  text-white">
+        <tr>
+          <th>Cliente</th>
+          <th>Teléfono</th>
+          <th>Calle</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody class=" bg-white">
+        <tr *ngFor="let venta of ventas">
+          <td>{{venta.nombresCliente}} {{venta.apellidosCliente}}</td>
+          <td>{{venta.telefonoCliente}}</td>
+          <td>{{venta.nombreCalle}}</td>
+          <td>{{venta.items.length}}</td>
+          <td>{{venta.total | currency: "$"}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
